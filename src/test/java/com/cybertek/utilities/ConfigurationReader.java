@@ -1,31 +1,49 @@
 package com.cybertek.utilities;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigurationReader {
 
-    private static final Properties properties = new Properties();
+    // In this class we will implement the repeated steps of reading
+    // from config.properties file
+
+    //#1 - Create the object of Prop
+    private static Properties properties = new Properties();
 
     static {
-
+        //#2 Get the path and open the file
         try {
             FileInputStream file = new FileInputStream("configuration.properties");
+
+
+            //#3 - Load the opened file into properties object
             properties.load(file);
 
+            // closing the file into properties object
             file.close();
 
-        }
-        catch (IOException e) {
+
+        }catch (FileNotFoundException e){
+
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getProperty(String keyword) {
+    //#4 - Use the object to read from the configuration.properties file
 
-        return properties.getProperty(keyword);
+    public static String getProperty (String keyWord){
+        return properties.getProperty(keyWord);
+
+
+
     }
 
 }
+
+
 
